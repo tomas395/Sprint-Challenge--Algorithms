@@ -95,9 +95,52 @@ class SortingRobot:
     def sort(self):
         """
         Sort the robot's list.
+    
         """
-        # Fill this out
-        pass
+        # l = [5, 11, 16, 28, 32, 44, 99, 108]
+        # holding None
+# swap, move all the way right to find smallest value, move all the way left to find none, swap, move right once or stop and turn light off
+
+        self.set_light_on() # starts the main loop
+        while self.light_is_on():
+            # pick up the left most item that hasn't been sorted
+            self.swap_item()
+            
+            # while keep moving right through the entire list we find a smallest remaining value and then swap
+            while self.can_move_right():
+                self.move_right()
+                if self.compare_item() > 0:  # checking if the item we're standing in front of is smaller than what we're holding
+                    self.swap_item()
+            
+            # move left until as long as we can or until we find None
+            while self.can_move_left():
+                if self.compare_item() is None:
+                    break 
+                else: 
+                    self.move_left()
+
+            # swap None for the current item
+            self.swap_item()
+
+            # move right once or find out if we're done
+            if self.can_move_right():
+                self.move_right()
+            # we break the loop by setting true to false
+            else:
+                self.set_light_off()
+
+
+        # swapped = True  # set a boolean check for if there have been any swaps
+        # while swapped:
+        #     swapped = False
+        #     # makes it so that we iterate over each item one at a time
+        #     for i in range(len(arr) - 1):
+        #         # check the neigboring index and only if it's smaller you...
+        #         if arr[i] > arr[i + 1]:
+        #             #  swap indexes so the lesser value is on the left and greater is on the right and keep checking if a swap was made
+        #             arr[i], arr[i + 1] = arr[i + 1], arr[i]
+        #             swapped = True  # once the final pass has been made and there have been no swaps, switch the bool to end the loop and return sorted
+        # return arr
 
 
 if __name__ == "__main__":
